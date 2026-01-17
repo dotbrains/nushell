@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from tag
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Create release notes
+        id: release_notes
+        run: |
+          cat > release_notes.md << 'EOF'
+          ## Nushell Configuration Release
+          
+          This release includes the complete Nushell configuration from the set-me-up project.
+          
+          ### Installation
+          
+          Clone or download this configuration to `~/.config/nushell/`:
+          
+          ```bash
+          # Clone the nushell config
+          git clone https://github.com/${{ github.repository }}.git ~/.config/nushell
+          
+          # Or download a specific version
+          curl -L https://github.com/${{ github.repository }}/archive/v${{ steps.version.outputs.version }}.tar.gz | tar xz
+          ```
+          
+          ### Features
+          
+          - Modular configuration with separate files for aliases, functions, variables, and colorschemes
+          - Three built-in themes: gruvbox, nord, and catppuccin
+          - Integration with modern tools: starship, zoxide, eza, mise, carapace
+          - Custom commands for common tasks
+          - Cross-platform support (macOS, Linux, BSD)
+          
+          ### Documentation
+          
+          See [README.md](README.md) for complete documentation and usage instructions.
+          EOF
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: Release v${{ steps.version.outputs.version }}
+          body_path: release_notes.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate release summary
+        run: |
+          echo "## ✅ Release v${{ steps.version.outputs.version }} Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Quick Install" >> $GITHUB_STEP_SUMMARY
+          echo '```bash' >> $GITHUB_STEP_SUMMARY
+          echo 'git clone --branch v${{ steps.version.outputs.version }} https://github.com/${{ github.repository }}.git ~/.config/nushell' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY

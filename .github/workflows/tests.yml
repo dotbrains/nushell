@@ -1,0 +1,94 @@
+name: Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set TERM variable
+        run: echo "TERM=xterm-256color" >> $GITHUB_ENV
+
+      - name: Install Nushell (macOS)
+        if: runner.os == 'macOS'
+        run: brew install nushell
+
+      - name: Install Nushell (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pkg-config libssl-dev
+          cargo install nu --version 0.99.0 --locked
+
+      - name: Display Nushell version
+        run: nu --version
+
+      - name: Test env.nu sourcing
+        run: |
+          # Test that env.nu can be sourced
+          nu --env-config env.nu --commands "echo '✓ env.nu sourced successfully'"
+
+      - name: Test config.nu sourcing
+        run: |
+          # Test that config.nu can be sourced
+          nu --env-config env.nu --config config.nu --commands "echo '✓ config.nu sourced successfully'"
+
+      - name: Test aliases module
+        run: |
+          nu --env-config env.nu --config config.nu --commands "
+            source aliases/aliases.nu;
+            echo '✓ Aliases loaded successfully'
+          "
+
+      - name: Test functions module
+        run: |
+          nu --env-config env.nu --config config.nu --commands "
+            source functions/functions.nu;
+            echo '✓ Functions loaded successfully'
+          "
+
+      - name: Test colorscheme module
+        run: |
+          nu --env-config env.nu --config config.nu --commands "
+            source colorscheme/colorscheme.nu;
+            echo '✓ Colorscheme loaded successfully'
+          "
+
+      - name: Test variables module
+        run: |
+          nu --env-config env.nu --config config.nu --commands "
+            source variables/variables.nu;
+            echo '✓ Variables loaded successfully'
+          "
+
+      - name: Test keybindings module
+        run: |
+          nu --env-config env.nu --config config.nu --commands "
+            source keybindings/keybindings.nu;
+            echo '✓ Keybindings loaded successfully'
+          "
+
+      - name: Validate all .nu files syntax
+        run: |
+          find . -name "*.nu" -type f | while read -r file; do
+            echo "Validating $file"
+            nu --commands "source $file" || exit 1
+          done
+
+      - name: Test custom commands
+        run: |
+          nu --env-config env.nu --config config.nu --commands "
+            # Test that custom commands are available
+            help mkcd | if ($in | is-empty) { exit 1 } else { echo '✓ mkcd command available' };
+            help sysinfo | if ($in | is-empty) { exit 1 } else { echo '✓ sysinfo command available' }
+          "
