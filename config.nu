@@ -52,7 +52,6 @@ $env.config = {
             line_head_top: true
             line_head_bottom: true
             line_shift: true
-            line_index: true
         }
         config: {
             cursor_color: {bg: 'yellow', fg: 'black'}
