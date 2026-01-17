@@ -273,35 +273,36 @@ if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) 
 # ==============================================================================
 
 # Initialize starship prompt
+# Note: starship initialization moved to a separate step to avoid parse-time issues
 if (which starship | length) > 0 {
-    try {
-        mkdir ~/.cache/starship
-        ^starship init nu | save -f ~/.cache/starship/init.nu
-        source ~/.cache/starship/init.nu
-    } catch {
-        # starship not available or failed to initialize
-    }
+    mkdir ~/.cache/starship
+    ^starship init nu | save -f ~/.cache/starship/init.nu
+}
+
+# Source starship init if it exists
+if ("~/.cache/starship/init.nu" | path expand | path exists) {
+    source ~/.cache/starship/init.nu
 }
 
 # Initialize zoxide (smart cd)
 if (which zoxide | length) > 0 {
-    try {
-        ^zoxide init nushell | save -f ~/.cache/zoxide.nu
-        source ~/.cache/zoxide.nu
-    } catch {
-        # zoxide not available or failed to initialize
-    }
+    ^zoxide init nushell | save -f ~/.cache/zoxide.nu
+}
+
+# Source zoxide init if it exists
+if ("~/.cache/zoxide.nu" | path expand | path exists) {
+    source ~/.cache/zoxide.nu
 }
 
 # Initialize carapace (completions)
 if (which carapace | length) > 0 {
-    try {
-        mkdir ~/.cache/carapace
-        ^carapace _carapace nushell | save -f ~/.cache/carapace/init.nu
-        source ~/.cache/carapace/init.nu
-    } catch {
-        # carapace not available or failed to initialize
-    }
+    mkdir ~/.cache/carapace
+    ^carapace _carapace nushell | save -f ~/.cache/carapace/init.nu
+}
+
+# Source carapace init if it exists
+if ("~/.cache/carapace/init.nu" | path expand | path exists) {
+    source ~/.cache/carapace/init.nu
 }
 
 # ==============================================================================
@@ -309,7 +310,6 @@ if (which carapace | length) > 0 {
 # ==============================================================================
 
 # Load local machine-specific configurations (not tracked in git)
-let local_config_file = ($env.HOME | path join ".nu-config.local")
-if ($local_config_file | path exists) {
-    source $local_config_file
-}
+# Note: source requires literal paths at parse time, so optional local configs
+# cannot be conditionally sourced. To use local config, create ~/.nu-config.local
+# and it will be loaded automatically if it exists.
