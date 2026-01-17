@@ -26,7 +26,7 @@ $env.VISUAL = "nvim"
 # ==============================================================================
 
 # Initialize Homebrew for macOS
-if (sys | get host.name) == "Darwin" {
+if (sys host | get name) == "Darwin" {
     if ("/opt/homebrew/bin/brew" | path exists) {
         ^/opt/homebrew/bin/brew shellenv | lines | each { |line|
             let parts = ($line | parse "{key}={value}")
@@ -49,7 +49,7 @@ if (sys | get host.name) == "Darwin" {
 }
 
 # Initialize Homebrew for Linux
-if (sys | get host.name) == "Linux" {
+if (sys host | get name) == "Linux" {
     if ("/home/linuxbrew/.linuxbrew/bin/brew" | path exists) {
         ^/home/linuxbrew/.linuxbrew/bin/brew shellenv | lines | each { |line|
             let parts = ($line | parse "{key}={value}")

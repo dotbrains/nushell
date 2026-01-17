@@ -273,37 +273,19 @@ if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) 
 # ==============================================================================
 
 # Initialize starship prompt
-# Note: starship initialization moved to a separate step to avoid parse-time issues
-if (which starship | length) > 0 {
-    mkdir ~/.cache/starship
-    ^starship init nu | save -f ~/.cache/starship/init.nu
-}
-
-# Source starship init if it exists
-if ("~/.cache/starship/init.nu" | path expand | path exists) {
-    source ~/.cache/starship/init.nu
-}
+# Note: Starship init cannot be sourced here due to parse-time file existence checks
+# To use starship, run: starship init nu | save -f ~/.cache/starship/init.nu
+# Then manually add: source ~/.cache/starship/init.nu to your config
 
 # Initialize zoxide (smart cd)
-if (which zoxide | length) > 0 {
-    ^zoxide init nushell | save -f ~/.cache/zoxide.nu
-}
-
-# Source zoxide init if it exists
-if ("~/.cache/zoxide.nu" | path expand | path exists) {
-    source ~/.cache/zoxide.nu
-}
+# Note: Zoxide init cannot be sourced here due to parse-time file existence checks
+# To use zoxide, run: zoxide init nushell | save -f ~/.cache/zoxide.nu
+# Then manually add: source ~/.cache/zoxide.nu to your config
 
 # Initialize carapace (completions)
-if (which carapace | length) > 0 {
-    mkdir ~/.cache/carapace
-    ^carapace _carapace nushell | save -f ~/.cache/carapace/init.nu
-}
-
-# Source carapace init if it exists
-if ("~/.cache/carapace/init.nu" | path expand | path exists) {
-    source ~/.cache/carapace/init.nu
-}
+# Note: Carapace init cannot be sourced here due to parse-time file existence checks  
+# To use carapace, run: carapace _carapace nushell | save -f ~/.cache/carapace/init.nu
+# Then manually add: source ~/.cache/carapace/init.nu to your config
 
 # ==============================================================================
 # Local Configuration
