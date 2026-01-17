@@ -168,6 +168,7 @@ For more complex plugins, you can create a Rust binary plugin:
 ## Plugin Configuration
 
 Plugins are registered in Nushell's plugin registry file, typically located at:
+
 - macOS/Linux: `~/.config/nushell/plugin.nu`
 - Windows: `%APPDATA%\nushell\plugin.nu`
 
@@ -180,11 +181,13 @@ This file is automatically managed by Nushell. Don't edit it manually unless nec
 If a plugin isn't recognized:
 
 1. Make sure it's executable:
+
    ```bash
    chmod +x /path/to/plugin
    ```
 
 2. Re-register the plugin:
+
    ```nushell
    plugin add /path/to/plugin --force
    ```

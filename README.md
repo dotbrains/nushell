@@ -32,7 +32,7 @@ This will install Nushell via Homebrew on macOS, Linux, or BSD.
 
 ## Structure
 
-```
+```text
 ~/.config/nushell/
 ├── config.nu              # Main configuration file
 ├── env.nu                 # Environment variables and PATH
@@ -63,6 +63,7 @@ This will install Nushell via Homebrew on macOS, Linux, or BSD.
 ### env.nu
 
 Loaded first, before `config.nu`. Contains:
+
 - XDG Base Directory Specification variables
 - Editor configuration (EDITOR, VISUAL)
 - Homebrew initialization for macOS and Linux
@@ -73,6 +74,7 @@ Loaded first, before `config.nu`. Contains:
 ### config.nu
 
 Main configuration file containing:
+
 - Shell settings (history, completions, table formatting, etc.)
 - Menu and keybinding definitions
 - Loading of modular configurations (colorscheme, aliases, functions)
@@ -81,15 +83,18 @@ Main configuration file containing:
 ### colorscheme/colorscheme.nu
 
 Theme configuration with three built-in themes:
+
 - **gruvbox** (default): Warm, retro groove colors
 - **nord**: Arctic, north-bluish color palette
 - **catppuccin**: Soothing pastel theme (Macchiato variant)
 
 The colorscheme also configures:
+
 - FZF colors to match the selected theme
 - Bat syntax highlighting theme
 
 Change themes by setting the `NU_THEME` environment variable:
+
 ```bash
 export NU_THEME=nord  # in your shell rc file
 ```
@@ -97,6 +102,7 @@ export NU_THEME=nord  # in your shell rc file
 ### variables/
 
 Modular environment variable configurations:
+
 - `variables.nu`: Main loader for variable modules
 - `version-managers.nu`: Python (pyenv), Ruby (rbenv), Node (nvm) paths
 - `tools.nu`: FZF preview, pnpm, LM Studio, Ruby gems paths
