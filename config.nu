@@ -89,7 +89,12 @@ $env.config = {
         vi_normal: underscore
     }
     
-    color_config: (use ~/.config/nushell/colorscheme/colorscheme.nu get_theme)
+    color_config: (if ("~/.config/nushell/colorscheme/colorscheme.nu" | path expand | path exists) {
+        use ~/.config/nushell/colorscheme/colorscheme.nu get_theme
+        get_theme
+    } else {
+        {}
+    })
     use_grid_icons: true
     footer_mode: "25"
     float_precision: 2
@@ -212,13 +217,19 @@ $env.config = {
 # ==============================================================================
 
 # Load colorscheme (must be loaded before config to set theme)
-use ~/.config/nushell/colorscheme/colorscheme.nu *
+if ("~/.config/nushell/colorscheme/colorscheme.nu" | path expand | path exists) {
+    use ~/.config/nushell/colorscheme/colorscheme.nu *
+}
 
 # Load aliases
-source ~/.config/nushell/aliases/aliases.nu
+if ("~/.config/nushell/aliases/aliases.nu" | path expand | path exists) {
+    source ~/.config/nushell/aliases/aliases.nu
+}
 
 # Load custom functions/commands
-source ~/.config/nushell/functions/functions.nu
+if ("~/.config/nushell/functions/functions.nu" | path expand | path exists) {
+    source ~/.config/nushell/functions/functions.nu
+}
 
 # Load keybindings
 if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) {
@@ -231,22 +242,34 @@ if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) 
 
 # Initialize starship prompt
 if (which starship | length) > 0 {
-    mkdir ~/.cache/starship
-    ^starship init nu | save -f ~/.cache/starship/init.nu
-    source ~/.cache/starship/init.nu
+    try {
+        mkdir ~/.cache/starship
+        ^starship init nu | save -f ~/.cache/starship/init.nu
+        source ~/.cache/starship/init.nu
+    } catch {
+        # starship not available or failed to initialize
+    }
 }
 
 # Initialize zoxide (smart cd)
 if (which zoxide | length) > 0 {
-    ^zoxide init nushell | save -f ~/.cache/zoxide.nu
-    source ~/.cache/zoxide.nu
+    try {
+        ^zoxide init nushell | save -f ~/.cache/zoxide.nu
+        source ~/.cache/zoxide.nu
+    } catch {
+        # zoxide not available or failed to initialize
+    }
 }
 
 # Initialize carapace (completions)
 if (which carapace | length) > 0 {
-    mkdir ~/.cache/carapace
-    ^carapace _carapace nushell | save -f ~/.cache/carapace/init.nu
-    source ~/.cache/carapace/init.nu
+    try {
+        mkdir ~/.cache/carapace
+        ^carapace _carapace nushell | save -f ~/.cache/carapace/init.nu
+        source ~/.cache/carapace/init.nu
+    } catch {
+        # carapace not available or failed to initialize
+    }
 }
 
 # ==============================================================================

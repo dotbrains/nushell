@@ -80,8 +80,12 @@ $env.PATH = ($env.PATH | split row (char esep) | append [
 
 # mise (polyglot version manager)
 if (which mise | length) > 0 {
-    ^mise activate nu | save --force /tmp/mise.nu
-    source /tmp/mise.nu
+    try {
+        ^mise activate nu | save --force /tmp/mise.nu
+        source /tmp/mise.nu
+    } catch {
+        # mise not available or failed to activate
+    }
 }
 
 # ==============================================================================

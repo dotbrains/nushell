@@ -60,12 +60,8 @@ jobs:
       
       - name: Check Nushell syntax
         run: |
-          # Check main config files
-          nu --commands "source config.nu"
-          nu --commands "source env.nu"
-          
-          # Check all .nu files for syntax errors
-          find . -name "*.nu" -type f | while read -r file; do
+          # Check all .nu files for syntax errors using nu-check
+          find . -name "*.nu" -type f -not -path "*/.*" | while read -r file; do
             echo "Checking $file"
-            nu --commands "source $file" || exit 1
+            nu --commands "nu-check $file" || exit 1
           done

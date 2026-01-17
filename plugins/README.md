@@ -4,7 +4,8 @@ This directory is for Nushell plugins and plugin-related configuration.
 
 ## What are Nushell Plugins?
 
-Nushell plugins are executables that extend Nushell's functionality. They can add new commands, data formats, and capabilities to your shell.
+Nushell plugins are executables that extend Nushell's functionality. They can add new commands, data
+formats, and capabilities to your shell.
 
 ## Plugin Types
 
@@ -81,7 +82,8 @@ plugin add /path/to/plugin --force
 Here are some useful plugins to consider:
 
 ### nu_plugin_query
-Query and transform structured data (JSON, XML, etc.)
+
+Query and transform structured data (JSON, XML, etc.).
 
 ```bash
 cargo install nu_plugin_query
@@ -89,11 +91,13 @@ plugin add ~/.cargo/bin/nu_plugin_query
 ```
 
 Example usage:
+
 ```nushell
 open data.json | query json '.users[] | select(.name, .email)'
 ```
 
 ### nu_plugin_formats
+
 Support for additional data formats like SQLite, msgpack, etc.
 
 ```bash
@@ -102,12 +106,14 @@ plugin add ~/.cargo/bin/nu_plugin_formats
 ```
 
 Example usage:
+
 ```nushell
 open database.db | query db "SELECT * FROM users"
 ```
 
 ### nu_plugin_gstat
-Enhanced git status information
+
+Enhanced git status information.
 
 ```bash
 cargo install nu_plugin_gstat
@@ -115,6 +121,7 @@ plugin add ~/.cargo/bin/nu_plugin_gstat
 ```
 
 Example usage:
+
 ```nushell
 gstat  # Shows detailed git repository status
 ```
@@ -136,11 +143,13 @@ def my-custom-command [] {
 For more complex plugins, you can create a Rust binary plugin:
 
 1. Create a new Rust project:
+
    ```bash
    cargo new --bin my_nu_plugin
    ```
 
 2. Add Nushell plugin dependencies to `Cargo.toml`:
+
    ```toml
    [dependencies]
    nu-plugin = "0.88"
@@ -150,6 +159,7 @@ For more complex plugins, you can create a Rust binary plugin:
 3. Implement the plugin interface in `src/main.rs`
 
 4. Build and register:
+
    ```bash
    cargo build --release
    plugin add target/release/my_nu_plugin
@@ -202,7 +212,6 @@ plugin list | where is_running == true
 - [Nushell Plugin Documentation](https://www.nushell.sh/book/plugins.html)
 - [Plugin Protocol](https://www.nushell.sh/contributor-book/plugins.html)
 - [Community Plugins](https://github.com/nushell/awesome-nu)
-- [Writing Plugins Guide](https://www.nushell.sh/contributor-book/plugin_protocol.html)
 
 ## Notes
 

@@ -1,14 +1,24 @@
 # Nushell Configuration
 
-[![Lint](https://github.com/dotbrains/set-me-up/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/dotbrains/set-me-up/actions/workflows/lint.yml)
-[![Tests](https://github.com/dotbrains/set-me-up/actions/workflows/tests.yml/badge.svg)](https://github.com/dotbrains/set-me-up/actions/workflows/tests.yml)
-[![Release](https://github.com/dotbrains/set-me-up/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/set-me-up/actions/workflows/release.yml)
+[![Lint](https://github.com/dotbrains/nushell/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/dotbrains/nushell/actions/workflows/lint.yml)
+[![Tests](https://github.com/dotbrains/nushell/actions/workflows/tests.yml/badge.svg)](https://github.com/dotbrains/nushell/actions/workflows/tests.yml)
+[![Release](https://github.com/dotbrains/nushell/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/nushell/actions/workflows/release.yml)
 
-This directory contains a modular and well-organized Nushell configuration for the set-me-up project.
+This repository contains my sensible defaults for nushell.
+
+## Usage
+
+The contents of this repository should be placed in your `$HOME/.config`.
+
+```bash
+git clone https://github.com/dotbrains/nushell.git $HOME/.config/nushell
+```
 
 ## Overview
 
-[Nushell](https://www.nushell.sh/) (Nu) is a modern, cross-platform shell that works with structured data. Unlike traditional shells that work with strings, Nushell pipelines use structured data, making it safer and more powerful for data manipulation.
+[Nushell](https://www.nushell.sh/) (Nu) is a modern, cross-platform shell that works with structured
+data. Unlike traditional shells that work with strings, Nushell pipelines use structured data, making
+it safer and more powerful for data manipulation.
 
 ## Installation
 
@@ -218,7 +228,7 @@ $env.NU_THEME = "catppuccin"
 
 Available themes:
 - `gruvbox` (default): Warm, retro groove colors
-- `nord`: Arctic, north-bluish color palette  
+- `nord`: Arctic, north-bluish color palette
 - `catppuccin`: Soothing pastel theme
 
 You can also customize themes by editing `colorscheme/colorscheme.nu` to:
@@ -315,4 +325,4 @@ Improvements to this configuration are welcome! Please ensure:
 
 ## License
 
-This configuration is part of the set-me-up project and follows the same license.
+The code is available under the [MIT license](LICENSE).

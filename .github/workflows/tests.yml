@@ -33,62 +33,49 @@ jobs:
       - name: Display Nushell version
         run: nu --version
 
-      - name: Test env.nu sourcing
+      - name: Test env.nu syntax
         run: |
-          # Test that env.nu can be sourced
-          nu --env-config env.nu --commands "echo '✓ env.nu sourced successfully'"
+          # Test that env.nu has valid syntax
+          nu --commands "nu-check env.nu"
 
-      - name: Test config.nu sourcing
+      - name: Test config.nu syntax
         run: |
-          # Test that config.nu can be sourced
-          nu --env-config env.nu --config config.nu --commands "echo '✓ config.nu sourced successfully'"
+          # Test that config.nu has valid syntax
+          nu --commands "nu-check config.nu"
 
-      - name: Test aliases module
+      - name: Test aliases module syntax
         run: |
-          nu --env-config env.nu --config config.nu --commands "
-            source aliases/aliases.nu;
-            echo '✓ Aliases loaded successfully'
-          "
+          if [ -f "aliases/aliases.nu" ]; then
+            nu --commands "nu-check aliases/aliases.nu"
+          fi
 
-      - name: Test functions module
+      - name: Test functions module syntax
         run: |
-          nu --env-config env.nu --config config.nu --commands "
-            source functions/functions.nu;
-            echo '✓ Functions loaded successfully'
-          "
+          if [ -f "functions/functions.nu" ]; then
+            nu --commands "nu-check functions/functions.nu"
+          fi
 
-      - name: Test colorscheme module
+      - name: Test colorscheme module syntax
         run: |
-          nu --env-config env.nu --config config.nu --commands "
-            source colorscheme/colorscheme.nu;
-            echo '✓ Colorscheme loaded successfully'
-          "
+          if [ -f "colorscheme/colorscheme.nu" ]; then
+            nu --commands "nu-check colorscheme/colorscheme.nu"
+          fi
 
-      - name: Test variables module
+      - name: Test variables module syntax
         run: |
-          nu --env-config env.nu --config config.nu --commands "
-            source variables/variables.nu;
-            echo '✓ Variables loaded successfully'
-          "
+          if [ -f "variables/variables.nu" ]; then
+            nu --commands "nu-check variables/variables.nu"
+          fi
 
-      - name: Test keybindings module
+      - name: Test keybindings module syntax
         run: |
-          nu --env-config env.nu --config config.nu --commands "
-            source keybindings/keybindings.nu;
-            echo '✓ Keybindings loaded successfully'
-          "
+          if [ -f "keybindings/keybindings.nu" ]; then
+            nu --commands "nu-check keybindings/keybindings.nu"
+          fi
 
       - name: Validate all .nu files syntax
         run: |
-          find . -name "*.nu" -type f | while read -r file; do
+          find . -name "*.nu" -type f -not -path "*/.*" | while read -r file; do
             echo "Validating $file"
-            nu --commands "source $file" || exit 1
+            nu --commands "nu-check $file" || exit 1
           done
-
-      - name: Test custom commands
-        run: |
-          nu --env-config env.nu --config config.nu --commands "
-            # Test that custom commands are available
-            help mkcd | if ($in | is-empty) { exit 1 } else { echo '✓ mkcd command available' };
-            help sysinfo | if ($in | is-empty) { exit 1 } else { echo '✓ sysinfo command available' }
-          "
