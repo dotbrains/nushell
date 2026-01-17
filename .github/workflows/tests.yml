@@ -33,68 +33,55 @@ jobs:
       - name: Display Nushell version
         run: nu --version
 
+      - name: Setup test environment
+        run: |
+          # Copy all config files to expected location
+          mkdir -p ~/.config/nushell
+          cp -r . ~/.config/nushell/
+          
       - name: Test env.nu sourcing
         run: |
-          # Create minimal test environment
-          mkdir -p ~/.config/nushell/test
-          cp env.nu ~/.config/nushell/test/
-          cd ~/.config/nushell/test
-          HOME_BACKUP=$HOME
-          export HOME=$(pwd | sed 's|test$||')
-          nu -n -c "source env.nu" 2>&1 | grep -v "deprecated" || echo "env.nu sourced successfully"
-          export HOME=$HOME_BACKUP
+          cd ~/.config/nushell
+          nu -n -c "source env.nu" 2>&1 || echo "env.nu test complete"
 
       - name: Test config.nu sourcing
         run: |
-          # Create minimal test environment with dependencies
-          mkdir -p ~/.config/nushell/test/{aliases,colorscheme,variables,keybindings,functions}
-          cp config.nu ~/.config/nushell/test/
-          
-          # Create stub files to satisfy dependencies
-          echo "# stub" > ~/.config/nushell/test/colorscheme/colorscheme.nu
-          echo "export def get_theme [] { {} }" >> ~/.config/nushell/test/colorscheme/colorscheme.nu
-          
-          cd ~/.config/nushell/test
-          HOME_BACKUP=$HOME
-          export HOME=$(pwd | sed 's|test$||')
-          nu -n -c "source config.nu" 2>&1 | grep -v "deprecated" || echo "config.nu sourced successfully"
-          export HOME=$HOME_BACKUP
+          cd ~/.config/nushell
+          nu -n -c "source config.nu" 2>&1 || echo "config.nu test complete"
 
       - name: Test aliases module
         run: |
+          cd ~/.config/nushell
           if [ -f "aliases/aliases.nu" ]; then
-            # Create test environment for aliases
-            mkdir -p ~/.config/nushell/test/aliases
-            cp aliases/*.nu ~/.config/nushell/test/aliases/
-            cd ~/.config/nushell/test
-            HOME_BACKUP=$HOME
-            export HOME=$(pwd | sed 's|test$||')
-            nu -n -c "source aliases/aliases.nu" 2>&1 | grep -v "deprecated" || echo "aliases sourced successfully"
-            export HOME=$HOME_BACKUP
+            nu -n -c "source aliases/aliases.nu" 2>&1 || echo "aliases test complete"
           fi
 
       - name: Test functions module
         run: |
+          cd ~/.config/nushell
           if [ -f "functions/functions.nu" ]; then
-            nu -n -c "source functions/functions.nu" 2>&1 | grep -v "deprecated" || echo "functions sourced successfully"
+            nu -n -c "source functions/functions.nu" 2>&1 || echo "functions test complete"
           fi
 
       - name: Test colorscheme module
         run: |
+          cd ~/.config/nushell
           if [ -f "colorscheme/colorscheme.nu" ]; then
-            nu -n -c "source colorscheme/colorscheme.nu" 2>&1 | grep -v "deprecated" || echo "colorscheme sourced successfully"
+            nu -n -c "source colorscheme/colorscheme.nu" 2>&1 || echo "colorscheme test complete"
           fi
 
       - name: Test variables module
         run: |
+          cd ~/.config/nushell
           if [ -f "variables/variables.nu" ]; then
-            nu -n -c "source variables/variables.nu" 2>&1 | grep -v "deprecated" || echo "variables sourced successfully"
+            nu -n -c "source variables/variables.nu" 2>&1 || echo "variables test complete"
           fi
 
       - name: Test keybindings module
         run: |
+          cd ~/.config/nushell
           if [ -f "keybindings/keybindings.nu" ]; then
-            nu -n -c "source keybindings/keybindings.nu" 2>&1 | grep -v "deprecated" || echo "keybindings sourced successfully"
+            nu -n -c "source keybindings/keybindings.nu" 2>&1 || echo "keybindings test complete"
           fi
 
       - name: Validate all .nu files syntax
