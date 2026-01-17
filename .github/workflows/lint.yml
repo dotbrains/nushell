@@ -18,46 +18,52 @@ jobs:
   markdown-lint:
     name: Markdown Lint
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Lint Markdown files
         uses: DavidAnson/markdownlint-cli2-action@v14
         with:
           globs: |
             **/*.md
             !node_modules/**
-      
+
   link-checker:
     name: Check Links
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Check links in Markdown files
         uses: gaurav-nelson/github-action-markdown-link-check@v1
         with:
           use-quiet-mode: 'yes'
           config-file: '.github/markdown-link-check-config.json'
-          
+
   nushell-syntax:
     name: Nushell Syntax Check
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      
+
       - name: Install Nushell
         run: |
-          sudo apt-get update
-          sudo apt-get install -y pkg-config libssl-dev
-          cargo install nu --version 0.99.0 --locked
-      
+          # Install Linuxbrew
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+          # Add Linuxbrew to PATH
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+          # Install Nushell via brew
+          brew install nushell
+
       - name: Check Nushell syntax
         run: |
           # Check all .nu files for syntax errors using nu-check
