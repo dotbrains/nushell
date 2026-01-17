@@ -77,11 +77,6 @@ $env.config = {
         }
     }
     
-    filesize: {
-        metric: true
-        format: "auto"
-    }
-    
     cursor_shape: {
         emacs: line
         vi_insert: block
@@ -100,7 +95,15 @@ $env.config = {
     use_ansi_coloring: true
     bracketed_paste: true
     edit_mode: emacs
-    shell_integration: true
+    shell_integration: {
+        osc2: true
+        osc7: true
+        osc8: true
+        osc9_9: false
+        osc133: true
+        osc633: true
+        reset_application_mode: true
+    }
     render_right_prompt_on_last_line: false
     use_kitty_protocol: false
     highlight_resolved_externals: false
