@@ -33,22 +33,26 @@ This will install Nushell via Homebrew on macOS, Linux, or BSD using [set-me-up 
 If you are **not** using set-me-up universal modules, you can install Nushell directly:
 
 **On macOS (with Homebrew):**
+
 ```bash
 brew install nushell
 ```
 
 **On Ubuntu/Debian:**
+
 ```bash
 sudo apt update
 sudo apt install nushell
 ```
 
 **On Arch Linux:**
+
 ```bash
 sudo pacman -S nushell
 ```
 
-See the official [Nushell website](https://www.nushell.sh/book/installation.html) for more installation options including Windows, portable releases, and compiling from source.
+See the official [Nushell website](https://www.nushell.sh/book/installation.html)
+for more installation options including Windows, portable releases, and compiling from source.
 
 ## Structure
 
@@ -328,6 +332,7 @@ Recommended plugins:
 ### Command Not Found
 
 If a command isn't found, check if it's installed:
+
 ```nushell
 which <command>
 ```
@@ -335,6 +340,7 @@ which <command>
 ### PATH Issues
 
 Check your PATH:
+
 ```nushell
 $env.PATH | each { |p| print $p }
 ```
@@ -342,6 +348,7 @@ $env.PATH | each { |p| print $p }
 ### Configuration Errors
 
 If there are syntax errors in configuration:
+
 ```nushell
 # Check env.nu
 nu -c "source ~/.config/nushell/env.nu"
@@ -353,6 +360,7 @@ nu -c "source ~/.config/nushell/config.nu"
 ## Contributing
 
 Improvements to this configuration are welcome! Please ensure:
+
 - Code is well-commented
 - Follows the modular structure
 - Works on macOS, Linux, and BSD
