@@ -82,9 +82,12 @@ $env.PATH = ($env.PATH | split row (char esep) | append [
 if (which mise | length) > 0 {
     try {
         ^mise activate nu | save --force /tmp/mise.nu
-        source /tmp/mise.nu
     } catch {
         # mise not available or failed to activate
+    }
+    
+    if ("/tmp/mise.nu" | path exists) {
+        source /tmp/mise.nu
     }
 }
 
