@@ -18,6 +18,7 @@ We follow [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format with t
 ### During Development
 
 1. **Add changes to the Unreleased section** as you make them:
+
    ```markdown
    ## [Unreleased]
    
@@ -35,6 +36,7 @@ We follow [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format with t
 ### Preparing for a Release
 
 1. **Create a new version section** below the Unreleased section:
+
    ```markdown
    ## [Unreleased]
    
@@ -49,6 +51,7 @@ We follow [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format with t
 3. **Keep Unreleased section empty** (or with new changes made after the release).
 
 4. **Add version comparison links** at the bottom:
+
    ```markdown
    [Unreleased]: https://github.com/OWNER/REPO/compare/v1.0.0...HEAD
    [v1.0.0]: https://github.com/OWNER/REPO/releases/tag/v1.0.0
