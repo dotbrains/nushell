@@ -79,17 +79,9 @@ $env.PATH = ($env.PATH | split row (char esep) | append [
 # ==============================================================================
 
 # mise (polyglot version manager)
-if (which mise | length) > 0 {
-    try {
-        ^mise activate nu | save --force /tmp/mise.nu
-    } catch {
-        # mise not available or failed to activate
-    }
-    
-    if ("/tmp/mise.nu" | path exists) {
-        source /tmp/mise.nu
-    }
-}
+# Note: We don't activate mise here as it requires sourcing a file
+# that may not exist at parse time. Instead, we rely on mise's
+# automatic activation in interactive shells or manual activation.
 
 # ==============================================================================
 # Tool Configuration

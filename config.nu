@@ -221,6 +221,38 @@ if ("~/.config/nushell/colorscheme/colorscheme.nu" | path expand | path exists) 
     use ~/.config/nushell/colorscheme/colorscheme.nu *
 }
 
+# Apply FZF and BAT theme integration based on selected theme
+let nu_theme = if ($env.NU_THEME? | is-empty) { "gruvbox" } else { $env.NU_THEME }
+
+# Set FZF colors based on selected theme
+if ($env.FZF_DEFAULT_OPTS? | is-not-empty) {
+    $env.FZF_DEFAULT_OPTS = match $nu_theme {
+        "gruvbox" => ($env.FZF_DEFAULT_OPTS + " " + 
+            "--color=fg:#d5c4a1,bg:#282828,hl:#fabd2f " +
+            "--color=fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f " +
+            "--color=info:#83a598,prompt:#fb4934,pointer:#b8bb26 " +
+            "--color=marker:#8ec07c,spinner:#d3869b,header:#8ec07c")
+        "nord" => ($env.FZF_DEFAULT_OPTS + " " +
+            "--color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 " +
+            "--color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 " +
+            "--color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac " +
+            "--color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b")
+        "catppuccin" => ($env.FZF_DEFAULT_OPTS + " " +
+            "--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 " +
+            "--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 " +
+            "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796")
+        _ => $env.FZF_DEFAULT_OPTS
+    }
+}
+
+# Set BAT theme based on selected theme
+$env.BAT_THEME = match $nu_theme {
+    "gruvbox" => "gruvbox-dark"
+    "nord" => "Nord"
+    "catppuccin" => "Catppuccin-macchiato"
+    _ => "gruvbox-dark"
+}
+
 # Load aliases
 if ("~/.config/nushell/aliases/aliases.nu" | path expand | path exists) {
     source ~/.config/nushell/aliases/aliases.nu

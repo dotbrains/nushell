@@ -3,13 +3,19 @@
 # ==============================================================================
 
 # Python version manager (pyenv)
-$env.PYENV_ROOT = ($env.XDG_DATA_HOME | path join "pyenv")
+if ($env.XDG_DATA_HOME? | is-not-empty) {
+    $env.PYENV_ROOT = ($env.XDG_DATA_HOME | path join "pyenv")
+}
 
 # Ruby version manager (rbenv)
-$env.RBENV_ROOT = ($env.XDG_DATA_HOME | path join "rbenv")
+if ($env.XDG_DATA_HOME? | is-not-empty) {
+    $env.RBENV_ROOT = ($env.XDG_DATA_HOME | path join "rbenv")
+}
 
 # Node version manager (nvm)
-$env.NVM_DIR = ($env.XDG_DATA_HOME | path join "nvm")
+if ($env.XDG_DATA_HOME? | is-not-empty) {
+    $env.NVM_DIR = ($env.XDG_DATA_HOME | path join "nvm")
+}
 
 # ==============================================================================
 # Version Manager Initialization

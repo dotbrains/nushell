@@ -40,14 +40,6 @@ alias lsh = ls -a | where name =~ '^\.'
 # fzy - fuzzy finder
 # ==============================================================================
 
-if (which fzy | length) > 0 {
-    # Find files
-    def fzyf [] {
-        find . -type f | fzy
-    }
-    
-    # Find directories
-    def fzyd [] {
-        find . -type d | fzy
-    }
-}
+# Note: fzy integration removed as the shell 'find' command conflicts
+# with nushell's built-in 'find' command. Use native nushell commands instead:
+# Example: ls **/* | where type == file | get name | fzy

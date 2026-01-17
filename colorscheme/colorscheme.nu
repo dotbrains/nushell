@@ -8,7 +8,6 @@
 
 # Available themes: gruvbox, nord, catppuccin
 # Set NU_THEME environment variable to change (default: gruvbox)
-let nu_theme = if ($env.NU_THEME? | is-empty) { "gruvbox" } else { $env.NU_THEME }
 
 # ==============================================================================
 # Theme Definitions
@@ -217,42 +216,7 @@ export def get_theme [] {
 }
 
 # ==============================================================================
-# FZF Theme Integration
+# FZF and Bat Theme Integration
 # ==============================================================================
-
-# Set FZF colors based on selected theme
-match $nu_theme {
-    "gruvbox" => {
-        $env.FZF_DEFAULT_OPTS = ($env.FZF_DEFAULT_OPTS + " " + 
-            "--color=fg:#d5c4a1,bg:#282828,hl:#fabd2f " +
-            "--color=fg+:#ebdbb2,bg+:#3c3836,hl+:#fabd2f " +
-            "--color=info:#83a598,prompt:#fb4934,pointer:#b8bb26 " +
-            "--color=marker:#8ec07c,spinner:#d3869b,header:#8ec07c")
-    }
-    "nord" => {
-        $env.FZF_DEFAULT_OPTS = ($env.FZF_DEFAULT_OPTS + " " +
-            "--color=fg:#e5e9f0,bg:#3b4252,hl:#81a1c1 " +
-            "--color=fg+:#e5e9f0,bg+:#3b4252,hl+:#81a1c1 " +
-            "--color=info:#eacb8a,prompt:#bf6069,pointer:#b48dac " +
-            "--color=marker:#a3be8b,spinner:#b48dac,header:#a3be8b")
-    }
-    "catppuccin" => {
-        $env.FZF_DEFAULT_OPTS = ($env.FZF_DEFAULT_OPTS + " " +
-            "--color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796 " +
-            "--color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6 " +
-            "--color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796")
-    }
-    _ => {}
-}
-
-# ==============================================================================
-# Bat Theme Integration
-# ==============================================================================
-
-# Set BAT theme based on selected theme
-$env.BAT_THEME = match $nu_theme {
-    "gruvbox" => "gruvbox-dark"
-    "nord" => "Nord"
-    "catppuccin" => "Catppuccin-macchiato"
-    _ => "gruvbox-dark"
-}
+# Note: FZF and Bat theme integration happens in config.nu after module import
+# to avoid parse-time issues with module-level code
