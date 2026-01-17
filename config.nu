@@ -78,7 +78,6 @@ $env.config = {
     }
     
     filesize: {
-        metric: false
         format: "auto"
     }
     
@@ -94,14 +93,23 @@ $env.config = {
     } else {
         {}
     })
-    use_grid_icons: true
-    footer_mode: "25"
+    footer_mode: 25
     float_precision: 2
     buffer_editor: "nvim"
     use_ansi_coloring: true
     bracketed_paste: true
     edit_mode: emacs
-    shell_integration: true
+    shell_integration: {
+        enable_1: true
+        enable_2: true
+        enable_3: true
+        enable_4: true
+        enable_5: true
+        enable_6: true
+        enable_7: true
+        enable_8: true
+        enable_9: true
+    }
     render_right_prompt_on_last_line: false
     use_kitty_protocol: false
     highlight_resolved_externals: false
