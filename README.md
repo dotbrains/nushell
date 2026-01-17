@@ -28,7 +28,27 @@ To install Nushell:
 bash ~/set-me-up/modules/universal/nushell/nushell.sh
 ```
 
-This will install Nushell via Homebrew on macOS, Linux, or BSD.
+This will install Nushell via Homebrew on macOS, Linux, or BSD using [set-me-up universal modules](https://github.com/dotbrains/set-me-up-universal-modules).
+
+If you are **not** using set-me-up universal modules, you can install Nushell directly:
+
+**On macOS (with Homebrew):**
+```bash
+brew install nushell
+```
+
+**On Ubuntu/Debian:**
+```bash
+sudo apt update
+sudo apt install nushell
+```
+
+**On Arch Linux:**
+```bash
+sudo pacman -S nushell
+```
+
+See the official [Nushell website](https://www.nushell.sh/book/installation.html) for more installation options including Windows, portable releases, and compiling from source.
 
 ## Structure
 
@@ -148,6 +168,7 @@ The configuration includes useful custom commands:
 ### Aliases
 
 Organized aliases for:
+
 - Navigation shortcuts (.., ..., cd..)
 - Shell operations (:q, c, q)
 - File operations with modern tools (eza, rip/trash)
@@ -155,7 +176,7 @@ Organized aliases for:
 - System utilities (localip, publicip)
 - External tools (wttr, piknik, commitizen)
 
-## Usage
+## Advanced Usage
 
 ### Starting Nushell
 
@@ -170,11 +191,13 @@ nu
 To set Nushell as your default shell:
 
 1. Add Nushell to `/etc/shells`:
+
    ```bash
    which nu | sudo tee -a /etc/shells
    ```
 
 2. Change your default shell:
+
    ```bash
    chsh -s $(which nu)
    ```
@@ -200,11 +223,13 @@ These files will be automatically sourced if they exist.
    - `tools.nu` - External tools
 
 2. Add your alias:
+
    ```nushell
    alias myalias = my command here
    ```
 
 3. Reload configuration:
+
    ```nushell
    source ~/.config/nushell/config.nu
    ```
@@ -233,11 +258,13 @@ $env.NU_THEME = "catppuccin"
 ```
 
 Available themes:
+
 - `gruvbox` (default): Warm, retro groove colors
 - `nord`: Arctic, north-bluish color palette
 - `catppuccin`: Soothing pastel theme
 
 You can also customize themes by editing `colorscheme/colorscheme.nu` to:
+
 - Modify existing theme colors
 - Add new custom themes
 - Adjust FZF and Bat color integration
@@ -256,6 +283,7 @@ Nushell supports plugins to extend functionality. See `plugins/README.md` for de
 ### Quick Start with Plugins
 
 Install and register a plugin:
+
 ```bash
 # Install via cargo
 cargo install nu_plugin_query
@@ -268,6 +296,7 @@ plugin list
 ```
 
 Recommended plugins:
+
 - **nu_plugin_query**: Query JSON, XML, and other structured data
 - **nu_plugin_formats**: SQLite, msgpack, and other format support
 - **nu_plugin_gstat**: Enhanced git status information
