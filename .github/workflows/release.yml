@@ -26,13 +26,59 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
 
-      - name: Create release notes
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          VERSION="v${{ steps.version.outputs.version }}"
+          
+          # Check if CHANGELOG.md exists
+          if [ ! -f CHANGELOG.md ]; then
+            echo "⚠️ CHANGELOG.md not found, using generic release notes"
+            echo "extract_success=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Extract the changelog section for this version
+          # If version section exists, extract it; otherwise use Unreleased section
+          if grep -q "## \[$VERSION\]" CHANGELOG.md || grep -q "## $VERSION" CHANGELOG.md; then
+            # Extract changelog between this version and the next version/unreleased section
+            sed -n "/## \[\?$VERSION\]\?/,/## \[/p" CHANGELOG.md | sed '$ d' > changelog_extract.md
+            echo "✓ Found changelog section for $VERSION"
+          elif grep -q "## \[Unreleased\]" CHANGELOG.md; then
+            # Use Unreleased section if version-specific section doesn't exist
+            sed -n '/## \[Unreleased\]/,/## \[/p' CHANGELOG.md | sed '$ d' > changelog_extract.md
+            echo "✓ Using Unreleased section for $VERSION"
+          else
+            echo "⚠️ No suitable changelog section found"
+            echo "extract_success=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "extract_success=true" >> $GITHUB_OUTPUT
+          
+      - name: Generate release notes
         id: release_notes
         run: |
-          cat > release_notes.md << 'EOF'
+          VERSION="v${{ steps.version.outputs.version }}"
+          
+          cat > release_notes.md << 'HEADER'
           ## Nushell Configuration Release
           
           This release includes the complete Nushell configuration from the set-me-up project.
+          HEADER
+          
+          # Add changelog if it was successfully extracted
+          if [ "${{ steps.changelog.outputs.extract_success }}" = "true" ]; then
+            echo "" >> release_notes.md
+            echo "## What's Changed" >> release_notes.md
+            echo "" >> release_notes.md
+            # Remove the version header line from the extract
+            tail -n +2 changelog_extract.md >> release_notes.md
+            echo "" >> release_notes.md
+            echo "---" >> release_notes.md
+          fi
+          
+          cat >> release_notes.md << 'FOOTER'
           
           ### Installation
           
@@ -57,7 +103,7 @@ jobs:
           ### Documentation
           
           See [README.md](README.md) for complete documentation and usage instructions.
-          EOF
+          FOOTER
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
