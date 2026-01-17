@@ -26,9 +26,15 @@ jobs:
       - name: Install Nushell (Linux)
         if: runner.os == 'Linux'
         run: |
-          sudo apt-get update
-          sudo apt-get install -y pkg-config libssl-dev
-          cargo install nu --version 0.99.0 --locked
+          # Install Linuxbrew
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          
+          # Add Linuxbrew to PATH
+          echo "/home/linuxbrew/.linuxbrew/bin" >> $GITHUB_PATH
+          eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+          
+          # Install Nushell via brew
+          brew install nushell
 
       - name: Display Nushell version
         run: nu --version
