@@ -1,4 +1,4 @@
-# Nushell Configuration
+# nushell
 
 [![Lint](https://github.com/dotbrains/nushell/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/dotbrains/nushell/actions/workflows/lint.yml)
 [![Tests](https://github.com/dotbrains/nushell/actions/workflows/tests.yml/badge.svg)](https://github.com/dotbrains/nushell/actions/workflows/tests.yml)
