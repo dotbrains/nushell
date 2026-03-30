@@ -183,7 +183,7 @@ Organized aliases for:
 - System utilities (localip, publicip)
 - External tools (wttr, piknik, commitizen)
 - Claude Code (`claude` with default flags)
-- Codex CLI (`codex` with gpt-5.4 model)
+- Codex CLI (`codex` with gpt-5.4 model, `cx` for full-auto, `cxd` for bypass-all)
 
 ## Advanced Usage
 
