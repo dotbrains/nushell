@@ -67,7 +67,8 @@ for more installation options including Windows, portable releases, and compilin
 │   ├── filesystem.nu      # File operations (ls, rm, etc.)
 │   ├── git.nu             # Git-related aliases
 │   ├── system.nu          # System utilities
-│   └── tools.nu           # External tool aliases
+│   ├── tools.nu           # External tool aliases
+│   └── claude.nu          # Claude Code aliases
 ├── functions/             # Custom commands
 │   └── functions.nu       # Utility functions
 ├── variables/             # Environment variable modules
@@ -180,6 +181,7 @@ Organized aliases for:
 - Git operations (acp, lg)
 - System utilities (localip, publicip)
 - External tools (wttr, piknik, commitizen)
+- Claude Code (`claude` with default flags)
 
 ## Advanced Usage
 
