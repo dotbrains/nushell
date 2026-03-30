@@ -68,7 +68,8 @@ for more installation options including Windows, portable releases, and compilin
 │   ├── git.nu             # Git-related aliases
 │   ├── system.nu          # System utilities
 │   ├── tools.nu           # External tool aliases
-│   └── claude.nu          # Claude Code aliases
+│   ├── claude.nu          # Claude Code aliases
+│   └── codex.nu           # Codex CLI aliases
 ├── functions/             # Custom commands
 │   └── functions.nu       # Utility functions
 ├── variables/             # Environment variable modules
@@ -182,6 +183,7 @@ Organized aliases for:
 - System utilities (localip, publicip)
 - External tools (wttr, piknik, commitizen)
 - Claude Code (`claude` with default flags)
+- Codex CLI (`codex` with o3 model)
 
 ## Advanced Usage
 

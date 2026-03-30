@@ -36,3 +36,8 @@ if (($alias_dir | path join "tools.nu") | path exists) {
 if (($alias_dir | path join "claude.nu") | path exists) {
     source ~/.config/nushell/aliases/claude.nu
 }
+
+# Codex CLI
+if (($alias_dir | path join "codex.nu") | path exists) {
+    source ~/.config/nushell/aliases/codex.nu
+}
