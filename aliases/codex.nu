@@ -4,5 +4,5 @@
 # ==============================================================================
 
 if (which codex | length) > 0 {
-    alias codex = codex --model o3
+    alias codex = codex --model gpt-5.4
 }
