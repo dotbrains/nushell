@@ -31,3 +31,8 @@ if (($alias_dir | path join "system.nu") | path exists) {
 if (($alias_dir | path join "tools.nu") | path exists) {
     source ~/.config/nushell/aliases/tools.nu
 }
+
+# Claude Code
+if (($alias_dir | path join "claude.nu") | path exists) {
+    source ~/.config/nushell/aliases/claude.nu
+}
