@@ -69,7 +69,8 @@ for more installation options including Windows, portable releases, and compilin
 │   ├── system.nu          # System utilities
 │   ├── tools.nu           # External tool aliases
 │   ├── claude.nu          # Claude Code aliases
-│   └── codex.nu           # Codex CLI aliases
+│   ├── codex.nu           # Codex CLI aliases
+│   └── pi.nu              # pi coding agent aliases
 ├── functions/             # Custom commands
 │   └── functions.nu       # Utility functions
 ├── variables/             # Environment variable modules
@@ -184,6 +185,7 @@ Organized aliases for:
 - External tools (wttr, piknik, commitizen)
 - Claude Code (`claude` with opus model, `cl` for skip-permissions)
 - Codex CLI (`codex` with gpt-5.4 model, `cx` for full-auto, `cxd` for bypass-all)
+- pi coding agent (`pi`, `pp` for print mode)
 
 ## Advanced Usage
 

@@ -41,3 +41,8 @@ if (($alias_dir | path join "claude.nu") | path exists) {
 if (($alias_dir | path join "codex.nu") | path exists) {
     source ~/.config/nushell/aliases/codex.nu
 }
+
+# pi coding agent
+if (($alias_dir | path join "pi.nu") | path exists) {
+    source ~/.config/nushell/aliases/pi.nu
+}
