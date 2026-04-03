@@ -108,6 +108,7 @@ if ("~/.config/nushell/variables/variables.nu" | path expand | path exists) {
 # ==============================================================================
 
 # Load local machine-specific environment configurations (not tracked in git)
-# Note: source requires literal paths at parse time, so optional local configs
-# cannot be conditionally sourced. To use local config, create ~/.nu-env.local
-# and nushell will automatically load it if it exists in your home directory.
+# This file should contain machine-specific env vars (API keys, paths, etc.)
+if (($env.HOME | path join ".nushell.local") | path exists) {
+    source ($env.HOME | path join ".nushell.local")
+}

@@ -293,6 +293,7 @@ if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) 
 # ==============================================================================
 
 # Load local machine-specific configurations (not tracked in git)
-# Note: source requires literal paths at parse time, so optional local configs
-# cannot be conditionally sourced. To use local config, create ~/.nu-config.local
-# and it will be loaded automatically if it exists.
+# This file should contain machine-specific aliases, functions, etc.
+if (($env.HOME | path join ".nushell.local") | path exists) {
+    source ($env.HOME | path join ".nushell.local")
+}
