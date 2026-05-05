@@ -104,6 +104,21 @@ if ("~/.config/nushell/variables/variables.nu" | path expand | path exists) {
 }
 
 # ==============================================================================
+# zoxide bootstrap (auto-loaded after config.nu)
+# ==============================================================================
+
+# Nushell can't conditionally `source` at parse time, so we materialise zoxide's
+# init script into the vendor/autoload directory. Files in that directory are
+# automatically sourced AFTER config.nu, which satisfies zoxide doctor's "init
+# must be last" requirement.
+# see: https://www.nushell.sh/book/configuration.html#auto-loading-libraries
+let zoxide_autoload_dir = ($env.HOME | path join ".config" "nushell" "vendor" "autoload")
+if (which zoxide | is-not-empty) {
+    mkdir $zoxide_autoload_dir
+    zoxide init nushell --cmd cd | save -f ($zoxide_autoload_dir | path join "zoxide.nu")
+}
+
+# ==============================================================================
 # Local Configuration
 # ==============================================================================
 

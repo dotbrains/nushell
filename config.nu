@@ -279,9 +279,9 @@ if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) 
 # Then manually add: source ~/.cache/starship/init.nu to your config
 
 # Initialize zoxide (smart cd)
-# Note: Zoxide init cannot be sourced here due to parse-time file existence checks
-# To use zoxide, run: zoxide init nushell | save -f ~/.cache/zoxide.nu
-# Then manually add: source ~/.cache/zoxide.nu to your config
+# Bootstrapped automatically from env.nu into ~/.config/nushell/vendor/autoload/zoxide.nu,
+# which Nushell auto-sources after config.nu. This satisfies zoxide doctor's
+# "init must be last" check without needing manual setup.
 
 # Initialize carapace (completions)
 # Note: Carapace init cannot be sourced here due to parse-time file existence checks  
