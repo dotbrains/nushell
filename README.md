@@ -183,7 +183,7 @@ Organized aliases for:
 - Git operations (acp, lg)
 - System utilities (localip, publicip)
 - External tools (wttr, piknik, commitizen)
-- Claude Code (`claude` with opus model, `cl` for skip-permissions)
+- Claude Code (`cl` for skip-permissions)
 - Codex CLI (`cx` for full-auto, `cxd` for bypass-all)
 - pi coding agent (`pi`, `pp` for print mode)
 
