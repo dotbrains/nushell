@@ -211,7 +211,7 @@ $env.config = {
 # ==============================================================================
 # Themes are now loaded from colorscheme/colorscheme.nu
 # Available themes: gruvbox, nord, catppuccin
-# Set the NU_THEME environment variable to change themes
+# Set SMU_THEME or NU_THEME environment variable to change themes
 
 # ==============================================================================
 # Load Modular Configurations
@@ -223,7 +223,13 @@ if ("~/.config/nushell/colorscheme/colorscheme.nu" | path expand | path exists) 
 }
 
 # Apply FZF and BAT theme integration based on selected theme
-let nu_theme = if ($env.NU_THEME? | is-empty) { "gruvbox" } else { $env.NU_THEME }
+let nu_theme = if ($env.NU_THEME? | is-not-empty) {
+    $env.NU_THEME
+} else if ($env.SMU_THEME? | is-not-empty) {
+    $env.SMU_THEME
+} else {
+    "gruvbox"
+}
 
 # Set FZF colors based on selected theme
 if ($env.FZF_DEFAULT_OPTS? | is-not-empty) {

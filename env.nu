@@ -15,6 +15,37 @@ $env.XDG_CACHE_HOME = ($env.HOME | path join ".cache")
 $env.XDG_STATE_HOME = ($env.HOME | path join ".local" "state")
 
 # ==============================================================================
+# set-me-up Profile
+# ==============================================================================
+
+let smu_profile = ($env.XDG_CONFIG_HOME | path join "set-me-up" "profile.env")
+if ($smu_profile | path exists) {
+    open $smu_profile
+    | lines
+    | where {|line| $line =~ '^export SMU_(THEME|PROMPT)=' }
+    | each {|line|
+        let assignment = ($line | str replace 'export ' '')
+        let parts = ($assignment | split row -n 2 '=')
+        if ($parts | length) == 2 {
+            let key = ($parts | get 0)
+            let value = ($parts | get 1 | str trim --char '"')
+            if ($key == "SMU_THEME" and ($env.SMU_THEME? | is-empty)) {
+                load-env {SMU_THEME: $value}
+            } else if ($key == "SMU_PROMPT" and ($env.SMU_PROMPT? | is-empty)) {
+                load-env {SMU_PROMPT: $value}
+            }
+        }
+    }
+}
+
+if ($env.SMU_THEME? | is-empty) {
+    $env.SMU_THEME = "gruvbox"
+}
+if ($env.SMU_PROMPT? | is-empty) {
+    $env.SMU_PROMPT = "starship"
+}
+
+# ==============================================================================
 # Editor Configuration
 # ==============================================================================
 

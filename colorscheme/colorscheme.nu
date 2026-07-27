@@ -7,7 +7,7 @@
 # ==============================================================================
 
 # Available themes: gruvbox, nord, catppuccin
-# Set NU_THEME environment variable to change (default: gruvbox)
+# Set SMU_THEME or NU_THEME environment variable to change (default: gruvbox)
 
 # ==============================================================================
 # Theme Definitions
@@ -201,7 +201,13 @@ export def catppuccin_theme [] {
 # ==============================================================================
 
 export def get_theme [] {
-    let theme_name = if ($env.NU_THEME? | is-empty) { "gruvbox" } else { $env.NU_THEME }
+    let theme_name = if ($env.NU_THEME? | is-not-empty) {
+        $env.NU_THEME
+    } else if ($env.SMU_THEME? | is-not-empty) {
+        $env.SMU_THEME
+    } else {
+        "gruvbox"
+    }
     
     match $theme_name {
         "gruvbox" => { gruvbox_theme }
