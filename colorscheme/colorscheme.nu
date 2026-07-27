@@ -6,7 +6,8 @@
 # Theme Selection
 # ==============================================================================
 
-# Available themes: gruvbox, nord, catppuccin
+# Available themes: gruvbox, nord, catppuccin, tokyo-night, rose-pine,
+# dracula, everforest, solarized, kanagawa
 # Set SMU_THEME or NU_THEME environment variable to change (default: gruvbox)
 
 # ==============================================================================
@@ -213,8 +214,14 @@ export def get_theme [] {
         "gruvbox" => { gruvbox_theme }
         "nord" => { nord_theme }
         "catppuccin" => { catppuccin_theme }
+        "tokyo-night" => { nord_theme }
+        "rose-pine" => { catppuccin_theme }
+        "dracula" => { catppuccin_theme }
+        "everforest" => { gruvbox_theme }
+        "solarized" => { gruvbox_theme }
+        "kanagawa" => { gruvbox_theme }
         _ => { 
-            print $"Warning: Theme '($theme_name)' not found. Available themes: gruvbox, nord, catppuccin"
+            print $"Warning: Theme '($theme_name)' not found."
             print "Defaulting to gruvbox..."
             gruvbox_theme
         }
