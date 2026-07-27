@@ -319,6 +319,10 @@ if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) 
 # Note: Starship init cannot be sourced here due to parse-time file existence checks
 # To use starship, run: starship init nu | save -f ~/.cache/starship/init.nu
 # Then manually add: source ~/.cache/starship/init.nu to your config
+let prompt_adapter = ($env.HOME | path join ".config/nushell/prompts" $"($env.SMU_PROMPT).nu")
+if ($prompt_adapter | path exists) {
+    source $prompt_adapter
+}
 
 # Initialize zoxide (smart cd)
 # Bootstrapped automatically from env.nu into ~/.config/nushell/vendor/autoload/zoxide.nu,
