@@ -155,6 +155,9 @@ if (which zoxide | is-not-empty) {
 
 # Load local machine-specific environment configurations (not tracked in git)
 # This file should contain machine-specific env vars (API keys, paths, etc.)
-if (($env.HOME | path join ".nushell.local") | path exists) {
-    source ($env.HOME | path join ".nushell.local")
+const local_env_config = if ("~/.nushell.local" | path expand | path exists) {
+    "~/.nushell.local"
+} else {
+    null
 }
+source $local_env_config

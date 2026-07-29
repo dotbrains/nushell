@@ -1,3 +1,6 @@
-if ("~/.cache/starship/init.nu" | path expand | path exists) {
-    source ~/.cache/starship/init.nu
+const starship_init = if ("~/.cache/starship/init.nu" | path expand | path exists) {
+    "~/.cache/starship/init.nu"
+} else {
+    null
 }
+source $starship_init

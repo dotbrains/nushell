@@ -315,13 +315,24 @@ if ("~/.config/nushell/keybindings/keybindings.nu" | path expand | path exists) 
 # External Tool Initialization
 # ==============================================================================
 
-# Initialize starship prompt
-# Note: Starship init cannot be sourced here due to parse-time file existence checks
-# To use starship, run: starship init nu | save -f ~/.cache/starship/init.nu
-# Then manually add: source ~/.cache/starship/init.nu to your config
-let prompt_adapter = ($env.HOME | path join ".config/nushell/prompts" $"($env.SMU_PROMPT).nu")
-if ($prompt_adapter | path exists) {
-    source $prompt_adapter
+# Initialize prompt
+if $env.SMU_PROMPT == "starship-minimal" {
+    if ("~/.config/starship-minimal.toml" | path expand | path exists) {
+        $env.STARSHIP_CONFIG = ("~/.config/starship-minimal.toml" | path expand)
+    }
+}
+
+const starship_init = if ("~/.cache/starship/init.nu" | path expand | path exists) {
+    "~/.cache/starship/init.nu"
+} else {
+    null
+}
+source $starship_init
+
+if $env.SMU_PROMPT == "classic" {
+    $env.PROMPT_COMMAND = {||
+        $"(whoami)@(sys host | get hostname):(pwd)> "
+    }
 }
 
 # Initialize zoxide (smart cd)
@@ -340,6 +351,9 @@ if ($prompt_adapter | path exists) {
 
 # Load local machine-specific configurations (not tracked in git)
 # This file should contain machine-specific aliases, functions, etc.
-if (($env.HOME | path join ".nushell.local") | path exists) {
-    source ($env.HOME | path join ".nushell.local")
+const local_config = if ("~/.nushell.local" | path expand | path exists) {
+    "~/.nushell.local"
+} else {
+    null
 }
+source $local_config
