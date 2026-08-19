@@ -296,6 +296,24 @@ $env.BAT_THEME = match $nu_theme {
     _ => "gruvbox-dark"
 }
 
+# Apply terminal theme using theme.sh, if installed
+# see: https://github.com/lemnos/theme.sh
+if (which theme | length) > 0 {
+    let theme_sh_name = match $nu_theme {
+        "gruvbox" => "gruvbox-dark"
+        "nord" => "nord"
+        "catppuccin" => "catppuccin-macchiato"
+        "tokyo-night" => "tokyo-night"
+        "rose-pine" => "rose-pine"
+        "dracula" => "dracula"
+        "everforest" => "everforest"
+        "solarized" => "solarized-dark"
+        "kanagawa" => "kanagawa"
+        _ => "gruvbox-dark"
+    }
+    ^theme $theme_sh_name
+}
+
 # Load aliases
 if ("~/.config/nushell/aliases/aliases.nu" | path expand | path exists) {
     source ~/.config/nushell/aliases/aliases.nu
