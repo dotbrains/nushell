@@ -298,20 +298,22 @@ $env.BAT_THEME = match $nu_theme {
 
 # Apply terminal theme using theme.sh, if installed
 # see: https://github.com/lemnos/theme.sh
+# catppuccin and kanagawa have no theme.sh equivalent, so they resolve to
+# null and are skipped below (fzf/bat still get themed above)
 if (which theme | length) > 0 {
     let theme_sh_name = match $nu_theme {
         "gruvbox" => "gruvbox-dark"
         "nord" => "nord"
-        "catppuccin" => "catppuccin-macchiato"
         "tokyo-night" => "tokyo-night"
         "rose-pine" => "rose-pine"
         "dracula" => "dracula"
         "everforest" => "everforest"
         "solarized" => "solarized-dark"
-        "kanagawa" => "kanagawa"
-        _ => "gruvbox-dark"
+        _ => null
     }
-    ^theme $theme_sh_name
+    if $theme_sh_name != null {
+        ^theme $theme_sh_name
+    }
 }
 
 # Load aliases
