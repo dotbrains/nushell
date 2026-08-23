@@ -1,8 +1,8 @@
 # nushell
 
-[![Lint](https://github.com/dotbrains/nushell/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/dotbrains/nushell/actions/workflows/lint.yml)
-[![Tests](https://github.com/dotbrains/nushell/actions/workflows/tests.yml/badge.svg)](https://github.com/dotbrains/nushell/actions/workflows/tests.yml)
-[![Release](https://github.com/dotbrains/nushell/actions/workflows/release.yml/badge.svg)](https://github.com/dotbrains/nushell/actions/workflows/release.yml)
+[![Lint](https://github.com/smeltery/nushell/actions/workflows/lint.yml/badge.svg?branch=master)](https://github.com/smeltery/nushell/actions/workflows/lint.yml)
+[![Tests](https://github.com/smeltery/nushell/actions/workflows/tests.yml/badge.svg)](https://github.com/smeltery/nushell/actions/workflows/tests.yml)
+[![Release](https://github.com/smeltery/nushell/actions/workflows/release.yml/badge.svg)](https://github.com/smeltery/nushell/actions/workflows/release.yml)
 [![License: PolyForm Shield 1.0.0](https://img.shields.io/badge/License-PolyForm%20Shield%201.0.0-blue.svg)](https://polyformproject.org/licenses/shield/1.0.0)
 
 This repository contains my sensible defaults for nushell.
@@ -12,7 +12,7 @@ This repository contains my sensible defaults for nushell.
 The contents of this repository should be placed in your `$HOME/.config`.
 
 ```bash
-git clone https://github.com/dotbrains/nushell.git $HOME/.config/nushell
+git clone https://github.com/smeltery/nushell.git $HOME/.config/nushell
 ```
 
 ## Overview
@@ -29,7 +29,7 @@ To install Nushell:
 bash ~/set-me-up/modules/universal/nushell/nushell.sh
 ```
 
-This will install Nushell via Homebrew on macOS, Linux, or BSD using [set-me-up universal modules](https://github.com/dotbrains/set-me-up-universal-modules).
+This will install Nushell via Homebrew on macOS, Linux, or BSD using [set-me-up universal modules](https://github.com/smeltery/set-me-up-universal-modules).
 
 If you are **not** using set-me-up universal modules, you can install Nushell directly:
 
