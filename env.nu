@@ -135,6 +135,19 @@ if ("~/.config/nushell/variables/variables.nu" | path expand | path exists) {
 }
 
 # ==============================================================================
+# worktrunk bootstrap (auto-loaded after config.nu, experimental nushell support)
+# ==============================================================================
+
+# Same rationale as the zoxide bootstrap below: materialise the init script
+# into vendor/autoload so it's auto-sourced after config.nu.
+# see: https://github.com/max-sixty/worktrunk
+let worktrunk_autoload_dir = ($env.HOME | path join ".config" "nushell" "vendor" "autoload")
+if (which wt | is-not-empty) {
+    mkdir $worktrunk_autoload_dir
+    wt config shell init nu | save -f ($worktrunk_autoload_dir | path join "wt.nu")
+}
+
+# ==============================================================================
 # zoxide bootstrap (auto-loaded after config.nu)
 # ==============================================================================
 
