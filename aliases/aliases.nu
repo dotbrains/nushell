@@ -42,9 +42,9 @@ if (($alias_dir | path join "codex.nu") | path exists) {
     source ~/.config/nushell/aliases/codex.nu
 }
 
-# Cursor Agent CLI
-if (($alias_dir | path join "cursor.nu") | path exists) {
-    source ~/.config/nushell/aliases/cursor.nu
+# Cursor Agent
+if (($alias_dir | path join "agent.nu") | path exists) {
+    source ~/.config/nushell/aliases/agent.nu
 }
 
 # pi coding agent
